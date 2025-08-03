@@ -1,0 +1,126 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario - Astrea Veritas</title>
+</head>
+<body>
+  <h1>Carga de Expediente</h1>
+  <form id="expedienteForm">
+    <label>Nombre:<br><input type="text" id="nombre" required /></label><br><br>
+    <label>Expediente:<br><input type="text" id="expediente" required /></label><br><br>
+    <label>Número de expediente:<br><input type="text" id="numero" required /></label><br><br>
+    <label>Fecha de inicio:<br><input type="date" id="fecha" required /></label><br><br>
+    <label>Jurisdicción:<br><input type="text" id="jurisdiccion" required /></label><br><br>
+    <label>Tipo:<br><input type="text" id="tipo" required /></label><br><br>
+    <label>Estado:<br>
+      <select id="estado" required>
+        <option value="">Seleccione</option>
+        <option value="Pendiente">Pendiente</option>
+        <option value="En trámite">En trámite</option>
+        <option value="Finalizado">Finalizado</option>
+        <option value="Archivado">Archivado</option>
+      </select>
+    </label><br><br>
+    <label>Observación:<br><textarea id="observacion" rows="4" cols="30"></textarea></label><br><br>
+    <button type="submit">Guardar</button>
+  </form>
+
+  <script type="module">
+    // Configuración de Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCrmaHViFb1p6ob0YmnrFBNiwAFW5RzxNs",
+      authDomain: "astreaveritas.firebaseapp.com",
+      projectId: "astreaveritas",
+      storageBucket: "astreaveritas.firebasestorage.app",
+      messagingSenderId: "42419209569",
+      appId: "1:42419209569:web:1bfd301eb5036d5e917120"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Manejo del formulario
+    document.getElementById("expedienteForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      try {
+        await addDoc(collection(db, "usuarios"), {
+          nombre: document.getElementById("nombre").value,
+          expediente: document.getElementById("expediente").value,
+          numero: document.getElementById("numero").value,
+          fecha: document.getElementById("fecha").value,
+          jurisdiccion: document.getElementById("jurisdiccion").value,
+          tipo: document.getElementById("tipo").value,
+          estado: document.getElementById("estado").value,
+          observacion: document.getElementById("observacion").value,
+        });
+
+        alert("Datos guardados exitosamente.");
+        document.getElementById("expedienteForm").reset();
+      } catch (error) {
+        console.error("Error al guardar:", error);
+        alert("Error al guardar los datos.");
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
